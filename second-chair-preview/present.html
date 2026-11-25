@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Chair</title>
+<link rel="stylesheet" href="reset.css"><link rel="stylesheet" href="reveal.css">
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="deck.css"><link rel="stylesheet" href="attention.css">
+<style>html,body{margin:0;height:100%;background:#000}</style>
+</head><body>
+<div class="reveal"><div class="slides" id="slides"></div></div>
+<script src="edition.js"></script>
+<script src="reveal.js"></script><script src="deck-data.js"></script><script src="reducer.js"></script>
+<script src="att-render.js"></script><script src="sync.js"></script>
+<script>
+/* Audience page: renders the session; never decides navigation itself. Keys become session commands. */
+fetch('slides.html').then(r => r.text()).then(html => {
+  document.getElementById('slides').innerHTML = html;
+  const deck = new Reveal(document.querySelector('.reveal'), { width: 1920, height: 1080, margin: 0, minScale: 0.05, maxScale: 3,
+    controls: false, progress: false, slideNumber: false, hash: false, keyboard: false, touch: false, overview: false,
+    transition: 'none', backgroundTransition: 'none', center: false, navigationMode: 'grid', scrollActivationWidth: null, view: null });
+  deck.initialize().then(() => {
+    const S = PresenterSync(); AttRender.setClock(S.now);
+    let shown = null;
+    S.onChange((s) => {
+      const sec = document.getElementById(s.current); if (!sec) return;
+      const moved = shown !== s.current;
+      if (moved) { const i = deck.getIndices(sec); deck.slide(i.h, i.v); shown = s.current; }
+      const home = s.origin || s.current;
+      if (DECK.att[home]) AttRender.render(document.getElementById(home), DECK.att[home], PresenterReducer.slideState(s, home), moved);
+    });
+    /* live exhibits in iframes: mirror the shared slider value, take keys the slider does not use */
+    const frames = () => [...document.querySelectorAll('iframe.rb-frame')];
+    let lastV, tmr = 0, pend;
+    const pushV = (s) => { const v = (s.vars || {}).rbI; if (v === lastV) return; lastV = v; frames().forEach(f => f.contentWindow && f.contentWindow.postMessage({ rbSet: v === undefined ? null : v }, '*')); };
+    S.onChange((s) => pushV(s));
+    window.addEventListener('message', (e) => { const d = e.data; if (!d || typeof d !== 'object') return;
+      if (d.rbReady) { const v = (S.state.vars || {}).rbI; e.source && e.source.postMessage({ rbSet: v === undefined ? null : v }, '*'); }
+      if ('rb' in d) { lastV = d.v === null ? undefined : d.v; pend = d.v; if (!tmr) tmr = setTimeout(() => { tmr = 0; S.send('setVar', { k: 'rbI', v: pend }); }, 60); }
+      if (d.presenterKey && !d.meta) { let t = K[d.presenterKey]; if (d.presenterKey === ' ' && d.shift) t = 'prev'; if (d.presenterKey === 'r' && !d.shift) t = 'replay'; if (t) S.send(t); }
+    });
+    const K = { ArrowRight: 'next', PageDown: 'next', ' ': 'next', Enter: 'next', ArrowLeft: 'prev', PageUp: 'prev', ArrowUp: 'up', ArrowDown: 'down', Escape: 'return' };
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      let t = K[e.key]; if (e.key === ' ' && e.shiftKey) t = 'prev';
+      if (e.key === 'r' && !e.shiftKey) t = 'replay';
+      if (!t) return;
+      e.preventDefault(); S.send(t);
+    }, true);
+  });
+});
+</script>
+</body></html>

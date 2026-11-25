@@ -1,0 +1,26 @@
+/* Styles for the sample deck's HTML slides (1920 x 1080 canvas). */
+.s{padding:112px 124px;background:#F6F5FA;color:#17161C}
+.s.dark{background:#17161C;color:#fff}
+.s .eyebrow{font-size:26px;letter-spacing:.16em;text-transform:uppercase;color:#8C89A0;font-weight:700}
+.s .h{font-size:96px;font-weight:700;letter-spacing:-3px;line-height:1.03;margin-top:20px;max-width:1500px}
+.s .h em{font-style:normal;color:#6C5CF0}
+.s .dark .h em{color:#A99FFB}
+.s .sub{font-size:40px;color:#4A4858;margin-top:26px;line-height:1.32;max-width:1320px}
+.s .dark .sub{color:#C9C6D8}
+.s .row{display:flex;gap:34px;margin-top:76px}
+.s .card{flex:1;background:#fff;border-radius:38px;padding:46px 46px 50px;box-shadow:0 34px 60px -34px rgba(50,40,120,.28)}
+.s .card .n{font-size:30px;font-weight:700;color:#6C5CF0}
+.s .card .t{font-size:48px;font-weight:700;letter-spacing:-1px;margin-top:12px}
+.s .card .d{font-size:30px;color:#4A4858;margin-top:14px;line-height:1.36}
+.s .foot{position:absolute;left:124px;bottom:72px;font-size:26px;color:#8C89A0;font-weight:500}
+.s .pills{display:flex;gap:20px;margin-top:70px}
+.s .pill{border-radius:30px;padding:26px 34px;font-size:32px;font-weight:600;flex:1}
+.s .pill small{display:block;font-size:24px;font-weight:500;color:#4A4858;margin-top:8px}
+.s .p1{background:#DDEFE5}.p2{background:#F8DEE5}.p3{background:#E7E5EF}.p4{background:#E5DEFA}
+.s .bars{margin-top:84px;display:flex;gap:10px;align-items:flex-end;height:260px}
+.s .bars i{flex:1;border-radius:14px 14px 0 0;background:#D9D5F5}
+.s .bars i.now{background:linear-gradient(#8E82FA,#5644E3)}
+.s .cuecard{margin-top:70px;background:#17161C;color:#fff;border-radius:38px;padding:50px 60px;font-size:46px;line-height:1.45;font-weight:600;max-width:1300px}
+.s .cuecard b{color:#A99FFB;font-weight:600}.cuecard u{text-decoration-thickness:4px;text-underline-offset:8px}
+.s .big{font-size:120px;font-weight:700;letter-spacing:-4px;line-height:1.02;max-width:1560px;margin-top:24px}
+.s .k1{color:#2E8B57}.k2{color:#C73A5C}.k3{color:#6B687C}.k4{color:#6C5CF0}

@@ -1,0 +1,17 @@
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:block;src:url(inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:italic;font-weight:400;font-display:block;src:url(inter-latin-400-italic.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:block;src:url(inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:italic;font-weight:500;font-display:block;src:url(inter-latin-500-italic.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:block;src:url(inter-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:italic;font-weight:600;font-display:block;src:url(inter-latin-600-italic.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:block;src:url(inter-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:italic;font-weight:700;font-display:block;src:url(inter-latin-700-italic.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:701 900;font-display:block;src:url(inter.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:italic;font-weight:701 900;font-display:block;src:url(inter-italic.woff2) format('woff2')}
+.reveal .controls,.reveal .progress,.reveal .slide-number{display:none!important}
+.reveal .slides{text-align:left}
+.reveal .slides section{padding:0}
+.reveal .slides section .s{position:relative;width:1920px;height:1080px;overflow:hidden;box-sizing:border-box;font-family:'Inter',Helvetica,Arial,sans-serif;color:#17161C}
+.reveal .slides section .s *{box-sizing:border-box}
+.reveal .slides section img.pg{display:block;width:1920px;height:1080px;object-fit:contain;margin:0;max-width:none;max-height:none;background:#000}
+.reveal h1,.reveal h2,.reveal h3,.reveal p{margin:0;font-family:inherit;text-transform:none;letter-spacing:inherit;line-height:inherit;color:inherit;font-weight:inherit}

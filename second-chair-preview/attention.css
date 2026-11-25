@@ -1,0 +1,68 @@
+/* Semantic attention system. Opt-in: only sections with data-att-track are touched.
+   Levels are attentional intents; each element's tone calibrates the real opacity,
+   so a black card that has been explained recedes further than a light one. */
+:root {
+  --att-dur: 350ms;
+  --att-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --att-bold: 850;
+  --att-crimson: #B51D37;
+  --att-emerald: #00845C;
+  --att-ink: #0D0D0D;
+  --att-underline-dur: 650ms;
+  --att-underline-ease: cubic-bezier(0.65, 0, 0.35, 1);
+}
+/* tone calibration: f = upcoming (nominal 33%), p = already explained (nominal 75%) */
+.reveal [data-att-track] [data-em]               { --f: 0.33; --p: 0.75; }
+.reveal [data-att-track] [data-em][data-tone="dark"]  { --f: 0.16; --p: 0.26; }  /* black cards, black rules */
+.reveal [data-att-track] [data-em][data-tone="mid"]   { --f: 0.26; --p: 0.55; }  /* medium-grey cards */
+.reveal [data-att-track] [data-em][data-tone="light"] { --f: 0.42; --p: 0.75; }  /* light-grey cards */
+.reveal [data-att-track] [data-em][data-tone="heavy"] { --f: 0.24; --p: 0.5; }   /* large black type */
+.reveal [data-att-track] [data-em][data-tone="ink"]   { --f: 0.3;  --p: 0.6; }   /* labels, body type */
+.reveal [data-att-track] [data-em][data-tone="soft"]  { --f: 0.45; --p: 0.8; }   /* already-grey captions */
+
+.reveal [data-att-track] [data-em],
+.reveal [data-att-track] [data-em] .att-text,
+.reveal [data-att-track] .att-text[data-em] {
+  transition: opacity var(--att-dur) var(--att-ease), color var(--att-dur) var(--att-ease),
+              background-color var(--att-dur) var(--att-ease), font-weight var(--att-dur) var(--att-ease);
+}
+.reveal [data-att-track] [data-em-state="future"]  { opacity: var(--f); }
+.reveal [data-att-track] [data-em-state="past"]    { opacity: var(--p); }
+.reveal [data-att-track] [data-em-state="active"],
+.reveal [data-att-track] [data-em-state="context"] { opacity: 1; }
+
+/* boldness travels with attention; it never accumulates */
+.reveal [data-att-track] [data-em-state="active"]:not([data-role="support"]) .att-text,
+.reveal [data-att-track] .att-text[data-em-state="active"]:not([data-role="support"]) { font-weight: var(--b, var(--att-bold)) !important; }
+/* letter spacing changes only where calibration asked for it; otherwise each statement keeps its own */
+.reveal [data-att-track] [data-em-state="active"]:not([data-role="support"]) .att-text[style*="--ls"],
+.reveal [data-att-track] .att-text[style*="--ls"][data-em-state="active"]:not([data-role="support"]) { letter-spacing: var(--ls) !important; }
+/* per-statement optical calibration: set --b on the text when 850 would re-wrap */
+/* white type on a grey card turns black while that card speaks */
+.reveal [data-att-track] [data-em-state="active"][data-ink="swap"] .att-text { color: var(--att-ink) !important; }
+/* persistent pathway context: crimson and heavy for the whole lane */
+.reveal [data-att-track] .att-text[data-em-state="context"] { color: var(--att-crimson) !important; font-weight: var(--att-bold) !important; }
+/* semantic outcomes: text and its rule change together */
+.reveal [data-att-track] .att-text[data-em-state="active"][data-sem="crimson"] { color: var(--att-crimson) !important; }
+.reveal [data-att-track] .att-text[data-em-state="active"][data-sem="emerald"] { color: var(--att-emerald) !important; }
+.reveal [data-att-track] .att-rule[data-em-state="active"][data-sem="crimson"] { background-color: var(--att-crimson) !important; }
+.reveal [data-att-track] .att-rule[data-em-state="active"][data-sem="emerald"] { background-color: var(--att-emerald) !important; }
+
+/* reserve typographic space: heavier weight must never re-wrap a line */
+.reveal [data-att-track] [data-ink] > .att-text { width: auto !important; }
+.reveal [data-att-track] .att-text[data-sem] { width: max-content !important; white-space: nowrap; }
+
+/* synthesis annotation: drawn under the exact rendered phrase */
+.reveal [data-att-track] .att-mark { position: relative; display: inline-block; }
+.reveal [data-att-track] .att-mark::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 4px; border-radius: 2px;
+  background: var(--att-crimson); transform: scaleX(0); transform-origin: left center;
+  transition: transform var(--att-underline-dur) var(--att-underline-ease);
+}
+.reveal [data-att-track] [data-em-state="active"] .att-mark::after { transform: scaleX(1); }
+
+/* arriving on a slide restores its state at once, with no motion */
+.reveal section.att-instant, .reveal section.att-instant *,
+.reveal section.att-instant *::after { transition: none !important; }
+
+@media (prefers-reduced-motion: reduce) { :root { --att-dur: 0ms; --att-underline-dur: 0ms; } }
