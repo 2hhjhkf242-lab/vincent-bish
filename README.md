@@ -10,7 +10,7 @@ I make institutions adopt things: a 60-day migration of 80,000 people at the U.S
 
 Your computer shows the slides; your phone or tablet runs the talk. A slide wheel you browse without the room seeing, pacing in plain words, cue cards, and one-tap backup slides for the questions you expect.
 
-- **Watch it:** [3D product video, 21 seconds](media/second-chair-slantit.mp4) · [plain iPad walkthrough](media/second-chair-ipad-walkthrough.mp4)
+- **Watch it:** [Second Chair in 3D, 17 seconds](media/second-chair-slantit.mp4) (made with Slant it) · [plain iPad walkthrough](media/second-chair-ipad-walkthrough.mp4)
 - **Try it free in your browser:** [vincentbish.com/second-chair](https://vincentbish.com/second-chair/) (open it on an iPad, sideways). The preview runs the sample deck.
 - **Get the full version:** [Second Chair on Gumroad](https://6622888999216.gumroad.com/l/second-chair). Loads any deck from a PDF, runs the audience screen, keeps phone and tablet in sync, optional live transcription, and a Claude skill that builds a full deck from your notes.
 
