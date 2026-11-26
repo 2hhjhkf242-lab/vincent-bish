@@ -8,6 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     + '@media (max-width:700px){.sc-wm{left:auto;right:62px;transform:none;top:calc(env(safe-area-inset-top) + 4px);font-size:12px;padding:5px}}'';
   document.head.appendChild(s);
   var b = document.createElement('div'); b.className = 'sc-wm';
-  b.innerHTML = '<a href="https://6622888999216.gumroad.com/l/second-chair" target="_blank" rel="noopener">Get Second Chair</a>';
+  b.innerHTML = '<a href="https://6622888999216.gumroad.com/l/second-chair" target="_blank" rel="noopener">Get Second Chair Counsel</a>';
   document.body.appendChild(b);
 });
